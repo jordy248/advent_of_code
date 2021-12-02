@@ -1,16 +1,10 @@
 import axios from 'axios';
-import 'dotenv/config';
-
-// get AOC cookie from .env
-let { AOC_COOKIE } = process.env;
-// make sure cookie does not contain 'session='
-AOC_COOKIE = AOC_COOKIE.replace(/session=/i, '');
 
 // get input data from advent of code
-export const getInput = async (url) => {
+export const getInput = async (url, cookie) => {
   const req = axios.get(url, {
     headers: {
-      Cookie: `session=${AOC_COOKIE}`,
+      Cookie: `session=${cookie}`,
     },
   });
 
