@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// get input data from advent of code
+// get input data from advent of code using auth session cookie
 export const getInput = async (url, cookie) => {
   const req = axios.get(url, {
     headers: {
