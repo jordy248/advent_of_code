@@ -1,9 +1,98 @@
 import cookie from '../../../utils/getCookie.js';
 import { getInput } from '../../../utils/getInput.js';
 
-// set day
+// >>> [ configs ] --------------------------------------------------------- >>>
 const day = '2';
+// <<< [ configs ] --------------------------------------------------------- <<<
 
+// >>> [ answer functions ] ------------------------------------------------ >>>
+// function to accept input and output part one answer
+const partOne = (input) => {
+  // parse input
+  const data = input.split('\n').map((x) => String(x));
+
+  // tidy data to remove empty strings
+  const tidyData = data.filter((x) => x !== '');
+
+  // init position object to store horizontal and depth results
+  const pos = {
+    horizontal: 0,
+    depth: 0,
+  };
+
+  // read positon changes from tidyData and update pos object
+  const dirRe = /[A-z]+/;
+  const unitsRe = /[0-9]+/;
+
+  tidyData.forEach((s) => {
+    const dir = dirRe.exec(s)[0];
+    const units = unitsRe.exec(s)[0];
+
+    switch (dir) {
+      case 'forward':
+        pos.horizontal += Number(units);
+        break;
+      case 'up':
+        pos.depth -= Number(units);
+        break;
+      case 'down':
+        pos.depth += Number(units);
+        break;
+      default:
+        break;
+    }
+  });
+
+  // multiple pos.horizontal and pos.depth together to get answer
+  const answer = pos.horizontal * pos.depth;
+  return answer;
+};
+
+// function to accept input and output part two answer
+const partTwo = (input) => {
+  const data = input.split('\n').map((x) => String(x));
+
+  // tidy data to remove empty strings
+  const tidyData = data.filter((x) => x !== '');
+
+  // init position object to store horizontal, depth, and aim results
+  const pos = {
+    horizontal: 0,
+    depth: 0,
+    aim: 0,
+  };
+
+  // read positon changes from tidyData and update pos object
+  const dirRe = /[A-z]+/;
+  const unitsRe = /[0-9]+/;
+
+  tidyData.forEach((s) => {
+    const dir = dirRe.exec(s)[0];
+    const units = unitsRe.exec(s)[0];
+
+    switch (dir) {
+      case 'up':
+        pos.aim -= Number(units);
+        break;
+      case 'down':
+        pos.aim += Number(units);
+        break;
+      case 'forward':
+        pos.horizontal += Number(units);
+        pos.depth += Number(units) * pos.aim;
+        break;
+      default:
+        break;
+    }
+  });
+
+  // multiple pos.horizontal and pos.depth together to get answer
+  const answer = pos.horizontal * pos.depth;
+  return answer;
+};
+// <<< [ answer functions ] ------------------------------------------------ <<<
+
+// >>> [ main ] ------------------------------------------------------------ >>>
 const getAnswers = () => {
   // get part one answer
   const partOneAnswer = getInput(
@@ -11,42 +100,7 @@ const getAnswers = () => {
     cookie
   )
     .then((input) => {
-      const data = input.split('\n').map((x) => String(x));
-
-      // tidy data to remove empty strings
-      const tidyData = data.filter((x) => x !== '');
-
-      // init position object to store horizontal and depth results
-      const pos = {
-        horizontal: 0,
-        depth: 0,
-      };
-
-      // read positon changes from tidyData and update pos object
-      const dirRe = /[A-z]+/;
-      const unitsRe = /[0-9]+/;
-
-      tidyData.forEach((s) => {
-        const dir = dirRe.exec(s)[0];
-        const units = unitsRe.exec(s)[0];
-
-        switch (dir) {
-          case 'forward':
-            pos.horizontal += Number(units);
-            break;
-          case 'up':
-            pos.depth -= Number(units);
-            break;
-          case 'down':
-            pos.depth += Number(units);
-            break;
-          default:
-            break;
-        }
-      });
-
-      // multiple pos.horizontal and pos.depth together to get answer
-      const answer = pos.horizontal * pos.depth;
+      const answer = partOne(input);
       return answer;
     })
     .catch((err) => console.log(err));
@@ -57,44 +111,7 @@ const getAnswers = () => {
     cookie
   )
     .then((input) => {
-      const data = input.split('\n').map((x) => String(x));
-
-      // tidy data to remove empty strings
-      const tidyData = data.filter((x) => x !== '');
-
-      // init position object to store horizontal, depth, and aim results
-      const pos = {
-        horizontal: 0,
-        depth: 0,
-        aim: 0,
-      };
-
-      // read positon changes from tidyData and update pos object
-      const dirRe = /[A-z]+/;
-      const unitsRe = /[0-9]+/;
-
-      tidyData.forEach((s) => {
-        const dir = dirRe.exec(s)[0];
-        const units = unitsRe.exec(s)[0];
-
-        switch (dir) {
-          case 'up':
-            pos.aim -= Number(units);
-            break;
-          case 'down':
-            pos.aim += Number(units);
-            break;
-          case 'forward':
-            pos.horizontal += Number(units);
-            pos.depth += Number(units) * pos.aim;
-            break;
-          default:
-            break;
-        }
-      });
-
-      // multiple pos.horizontal and pos.depth together to get answer
-      const answer = pos.horizontal * pos.depth;
+      const answer = partTwo(input);
       return answer;
     })
     .catch((err) => console.log(err));
@@ -108,3 +125,8 @@ const getAnswers = () => {
 };
 
 getAnswers();
+// <<< [ main ] ------------------------------------------------------------ <<<
+
+// >>> [ exports ] --------------------------------------------------------- >>>
+module.exports = {partOne, partTwo}
+// <<< [ exports ] --------------------------------------------------------- <<<

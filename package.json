@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
+  "author": "jordy nelson <jordy@jordynelson.io>",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./utils/setupTests.js"
+    ]
+  },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
+    "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.15.4",
+    "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.14.5",
     "@types/node": "^16.7.13",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
@@ -32,6 +38,9 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "dotenv": "^10.0.0"
+    "babel-jest": "^27.4.2",
+    "dotenv": "^10.0.0",
+    "jest": "^27.4.3",
+    "jsdom": "^18.1.1"
   }
 }
