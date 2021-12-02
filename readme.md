@@ -26,3 +26,11 @@ Run daily files with node:
 ```shell
 node 2021/calendar/day-01/index.js
 ```
+
+## Test
+
+Tests are run using each day's provided examples.
+
+```shell
+npm run test
+```
