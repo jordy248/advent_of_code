@@ -36,11 +36,11 @@ const getAnswers = () => {
       // filter empty lines (NaN) out of data
       const tidiedData = tidyInput(data);
 
-      // function to compute moving sum of array
-      // for window size of n, starting at index position i
-      const movingSum = (arr, i, n) => {
-        const windowArr = arr.slice(i, i + n);
-        const windowSum = windowArr.reduce((a, b) => a + b, 0);
+      // function to compute moving sum of array, a,
+      // for window size, n, and starting index position, i
+      const movingSum = (a, i, n) => {
+        const windowArr = a.slice(i, i + n);
+        const windowSum = windowArr.reduce((x, y) => x + y, 0);
         return windowSum;
       };
 
@@ -65,27 +65,5 @@ const getAnswers = () => {
     }
   );
 };
-
-// // get data from advent of code
-// getInput(`https://adventofcode.com/2021/day/${day}/input`)
-//   .then((input) => {
-//     const data = input.split('\n').map((x) => parseInt(x));
-
-//     // filter
-
-//     // filter empty lines (NaN) out of data
-//     const tidiedData = tidyInput(data);
-
-//     // filter input to only retain entries that are smaller than the following entry
-//     // (look for smaller entries compared to following entry so we don't have to deal with first entry looking back on undefined)
-//     const partOneArr = tidiedData.filter((d, i) => d < tidiedData[i + 1]);
-//     const partOneAnswer = partOneArr.length;
-
-//     console.log(`Part One Answer: ${partOneAnswer}`);
-
-//     return partOneAnswer;
-//   })
-//   .catch((err) => console.log(err))
-//   .finally((partOneAnswer) => console.log(`Part One Answer: ${partOneAnswer}`));
 
 getAnswers();
