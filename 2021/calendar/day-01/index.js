@@ -1,3 +1,4 @@
+import cookie from '../../../utils/getCookie.js';
 import { getInput, tidyInput } from '../../../utils/getData.js';
 
 // set day
@@ -6,7 +7,8 @@ const day = '1';
 const getAnswers = () => {
   // get part one answer
   const partOneAnswer = getInput(
-    `https://adventofcode.com/2021/day/${day}/input`
+    `https://adventofcode.com/2021/day/${day}/input`,
+    cookie
   )
     .then((input) => {
       const data = input.split('\n').map((x) => parseInt(x));
@@ -26,7 +28,8 @@ const getAnswers = () => {
 
   // get part two answer
   const partTwoAnswer = getInput(
-    `https://adventofcode.com/2021/day/${day}/input`
+    `https://adventofcode.com/2021/day/${day}/input`,
+    cookie
   )
     .then((input) => {
       const data = input.split('\n').map((x) => parseInt(x));
