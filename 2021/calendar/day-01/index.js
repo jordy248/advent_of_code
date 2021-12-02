@@ -1,5 +1,5 @@
 import cookie from '../../../utils/getCookie.js';
-import { getInput, tidyInput } from '../../../utils/getData.js';
+import { getInput, tidyInput } from '../../../utils/getInput.js';
 
 // set day
 const day = '1';
