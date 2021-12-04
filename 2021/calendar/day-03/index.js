@@ -21,7 +21,7 @@ const getPositionCharacters = (data, i) => {
 // removing all other characters from string and finding remaining length
 const countChar = (s, c) => {
   // remove from s any character that is not c
-  const re = new RegExp('[^' + c + ']', 'g');
+  const re = new RegExp(`[^${c}]`, 'g');
   const sFiltered = s.replace(re, '');
   // return length of sFiltered
   const count = sFiltered.length;
@@ -63,6 +63,14 @@ const partOne = (input) => {
     return countOne < countZero ? 1 : 0;
   });
 
+  // below gets gamma by using bitwise XOR to invert epsilon
+  // const strLen = tidyData[0].length;
+  // const gamma = parseInt(gammaArr.join(''), 2);
+  // // eslint-disable-next-line no-bitwise
+  // const epsilon = gamma ^ parseInt(Array(strLen).fill(1).join(''), 2);
+  // console.log(`gamma:   ${gamma.toString(2).padStart(strLen, '0')}`);
+  // console.log(`epsilon: ${epsilon.toString(2).padStart(strLen, '0')}`);
+
   // get gamma by converting binary to decimal
   const gammaDecimal = parseInt(gammaArr.join(''), 2);
   // get epsilon by converting binary to decimal
@@ -82,8 +90,8 @@ const partTwo = (input) => {
   const tidyData = data.filter((x) => x !== '');
 
   // init empty arrays for gamma and epsilon
-  let o2RatingArr = Array(tidyData[0].length).fill(0);
-  let co2RatingArr = Array(tidyData[0].length).fill(0);
+  const o2RatingArr = Array(tidyData[0].length).fill(0);
+  const co2RatingArr = Array(tidyData[0].length).fill(0);
 
   // update o2RatingArr
   let o2Rating = [...tidyData]; // copy so we can filter as we go
@@ -98,9 +106,7 @@ const partTwo = (input) => {
     const commonChar = countOne >= countZero ? '1' : '0';
     // update o2Rating
     if (o2Rating.length > 1) {
-      o2Rating = o2Rating.filter((d) => {
-        return d[i] === commonChar;
-      });
+      o2Rating = o2Rating.filter((d) => d[i] === commonChar);
     }
   });
 
@@ -117,9 +123,7 @@ const partTwo = (input) => {
     const leastCommonChar = countOne < countZero ? '1' : '0';
     // update co2Rating
     if (co2Rating.length > 1) {
-      co2Rating = co2Rating.filter((d) => {
-        return d[i] === leastCommonChar;
-      });
+      co2Rating = co2Rating.filter((d) => d[i] === leastCommonChar);
     }
   });
 
@@ -170,5 +174,5 @@ getAnswers();
 // <<< [ main ] ------------------------------------------------------------ <<<
 
 // >>> [ exports ] --------------------------------------------------------- >>>
-module.exports = {partOne, partTwo}
+module.exports = { partOne, partTwo };
 // <<< [ exports ] --------------------------------------------------------- <<<
