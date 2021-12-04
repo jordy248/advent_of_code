@@ -26,24 +26,25 @@ const partOne = (input) => {
 
   tidyData.forEach((s) => {
     const dir = dirRe.exec(s)[0];
-    const units = unitsRe.exec(s)[0];
+    const units = +unitsRe.exec(s)[0];
 
     switch (dir) {
       case 'forward':
-        pos.horizontal += Number(units);
+        pos.horizontal += units;
         break;
       case 'up':
-        pos.depth -= Number(units);
+        pos.depth -= units;
         break;
       case 'down':
-        pos.depth += Number(units);
+        pos.depth += units;
         break;
       default:
+        // 😠
         break;
     }
   });
 
-  // multiple pos.horizontal and pos.depth together to get answer
+  // multiply pos.horizontal and pos.depth together to get answer
   const answer = pos.horizontal * pos.depth;
   return answer;
 };
@@ -68,25 +69,26 @@ const partTwo = (input) => {
 
   tidyData.forEach((s) => {
     const dir = dirRe.exec(s)[0];
-    const units = unitsRe.exec(s)[0];
+    const units = +unitsRe.exec(s)[0];
 
     switch (dir) {
       case 'up':
-        pos.aim -= Number(units);
+        pos.aim -= units;
         break;
       case 'down':
-        pos.aim += Number(units);
+        pos.aim += units;
         break;
       case 'forward':
-        pos.horizontal += Number(units);
-        pos.depth += Number(units) * pos.aim;
+        pos.horizontal += units;
+        pos.depth += units * pos.aim;
         break;
       default:
+        // 😠
         break;
     }
   });
 
-  // multiple pos.horizontal and pos.depth together to get answer
+  // multiply pos.horizontal and pos.depth together to get answer
   const answer = pos.horizontal * pos.depth;
   return answer;
 };
