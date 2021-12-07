@@ -20,20 +20,16 @@ const parseInput = (input, type = 'matrix') => {
   // >>> [ get boards ] >>>
   const boardsStr = tidiedInput.split('\n\n').slice(1);
   const boardsArr = boardsStr.map((board) =>
-    board
-      // Split each board into lines
-      .split('\n')
-      // Strip blank lines (handles trailing newline in file)
-      .filter((l) => l.length > 0)
-      // Read all the numbers and parse them into cells
-      .map((row) =>
-        type === 'dict'
-          ? Array.from(row.matchAll(/\d+/g)).map((cell) => ({
-              number: parseInt(cell[0]),
-              called: false,
-            }))
-          : Array.from(row.matchAll(/\d+/g)).map((cell) => parseInt(cell[0]))
-      )
+    board.split('\n').map((row) =>
+      type === 'dict'
+        ? // method one: array of objects
+          Array.from(row.matchAll(/\d+/g)).map((cell) => ({
+            number: parseInt(cell[0]),
+            called: false,
+          }))
+        : // method two: 2-D array of numbers
+          Array.from(row.matchAll(/\d+/g)).map((cell) => parseInt(cell[0]))
+    )
   );
   // <<< [ get boards ] <<<
 
@@ -72,7 +68,7 @@ const updateBoard = (number, board, type = 'matrix') => {
 // function to check a board to see if it's a winner
 // for dict type, check if all cells in a row or column have property `called` === true
 // for matrix type, check if all cells in a row or column are -1
-const checkBoard = (board, type = 'matrix', nrow = 5, ncol = 5) => {
+const checkBoard = (board, type = 'matrix', ncol = 5) => {
   if (type === 'matrix') {
     // >>> [ check rows ] >>>
     for (const row of board) {
@@ -155,7 +151,6 @@ const sumBoard = (board, type = 'matrix') => {
 
   return sum;
 };
-
 // <<< [ helper functions ] ------------------------------------------------ <<<
 
 // >>> [ answer functions ] ------------------------------------------------ >>>
@@ -171,8 +166,10 @@ const partOne = (input) => {
   const nBoards = boardsArr.length;
 
   // get board dimensions
-  const nBoardRows = boardsArr[0].length;
-  const nBoardCols = boardsArr[0][0].length;
+  const [nBoardRows, nBoardCols] = [
+    boardsArr[0].length,
+    boardsArr[0][0].length,
+  ];
 
   // init array to keep track of winning boards
   const winningBoards = Array(nBoards).fill(false);
@@ -180,7 +177,6 @@ const partOne = (input) => {
   let winningBoard = null;
   // init variable to save winning number
   let winningNumber = null;
-
   // init updatedBoardsArr to keep track of updating boards
   let updatedBoardsArr = boardsArr.slice();
 
@@ -196,7 +192,7 @@ const partOne = (input) => {
     // eslint-disable-next-line no-plusplus
     for (let j = 0; j < nBoards; j++) {
       const board = updatedBoardsArr[j];
-      const boardWin = checkBoard(board, type, nBoardRows, nBoardCols);
+      const boardWin = checkBoard(board, type, nBoardCols);
       if (boardWin) {
         // update winningBoards Arr
         winningBoards[j] = true;
@@ -236,8 +232,10 @@ const partTwo = (input) => {
   const nBoards = boardsArr.length;
 
   // get board dimensions
-  const nBoardRows = boardsArr[0].length;
-  const nBoardCols = boardsArr[0][0].length;
+  const [nBoardRows, nBoardCols] = [
+    boardsArr[0].length,
+    boardsArr[0][0].length,
+  ];
 
   // init array to keep track of winning boards
   const winningBoards = Array(nBoards).fill(false);
@@ -247,7 +245,6 @@ const partTwo = (input) => {
   let winningNumber = null;
   // init variable to save number of winning boards
   let nWinningBoards = 0;
-
   // init updatedBoardsArr to keep track of updating boards
   let updatedBoardsArr = boardsArr.slice();
 
@@ -336,5 +333,5 @@ getAnswers();
 // <<< [ main ] ------------------------------------------------------------ <<<
 
 // >>> [ exports ] --------------------------------------------------------- >>>
-// module.exports = { partOne, partTwo };
+module.exports = { partOne, partTwo };
 // <<< [ exports ] --------------------------------------------------------- <<<
