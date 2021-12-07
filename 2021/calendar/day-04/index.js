@@ -55,6 +55,17 @@ const updateBoard = (number, board, type = 'matrix') => {
     );
     return newBoard;
   }
+  if (type === 'dict') {
+    const newBoard = board.map((row) =>
+      row.map((cell) => {
+        if (cell.number === number) {
+          cell.called = true;
+        }
+        return cell;
+      })
+    );
+    return newBoard;
+  }
   return null;
 };
 
@@ -89,15 +100,58 @@ const checkBoard = (board, type = 'matrix', nrow = 5, ncol = 5) => {
       // const colSum = col.reduce((a, b) => a + b, 0);
     }
     // <<< [ check cols ] <<<
+  } else if (type === 'dict') {
+    // >>> [ check rows ] >>>
+    for (const row of board) {
+      // method one: array.every()
+      const rowWin = row.every((cell) => cell.called === true);
+      if (rowWin) {
+        return true;
+      }
+      // method two: array.reduce()
+      // const rowSum = row.reduce((a, b) => a + b, 0);
+    }
+    // <<< [ check rows ] <<<
+
+    // >>> [ check cols ] >>>
+    // loop through each column, create col array, and check that col array
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < ncol; i++) {
+      const col = board.map((row) => row[i]);
+
+      // method one: array.every()
+      const colWin = col.every((cell) => cell.called === true);
+      if (colWin) {
+        return true;
+      }
+      // method two: array.reduce()
+      // const colSum = col.reduce((a, b) => a + b, 0);
+    }
+    // <<< [ check cols ] <<<
   }
   return false;
 };
 
 // function to sum all values in board other than marked cells (indicated by -1)
-const sumBoard = (board) => {
-  const sum = board
-    .map((row) => row.filter((cell) => cell !== -1).reduce((a, b) => a + b, 0))
-    .reduce((a, b) => a + b, 0);
+const sumBoard = (board, type = 'matrix') => {
+  let sum = 0;
+
+  if (type === 'matrix') {
+    sum = board
+      .map((row) =>
+        row.filter((cell) => cell !== -1).reduce((a, b) => a + b, 0)
+      )
+      .reduce((a, b) => a + b, 0);
+  } else if (type === 'dict') {
+    sum = board
+      .map((row) =>
+        row
+          .filter((cell) => cell.called !== true)
+          .map((c) => c.number)
+          .reduce((a, b) => a + b, 0)
+      )
+      .reduce((a, b) => a + b, 0);
+  }
 
   return sum;
 };
@@ -108,7 +162,7 @@ const sumBoard = (board) => {
 // function to accept input and output part one answer
 const partOne = (input) => {
   // set type
-  const type = 'matrix';
+  const type = 'dict';
 
   // parse data
   const [numbersArr, boardsArr] = parseInput(input, type);
@@ -159,8 +213,11 @@ const partOne = (input) => {
     }
   }
 
+  console.log('test');
+  console.log(winningBoard);
+
   // get winning board sum
-  const winningBoardSum = sumBoard(winningBoard);
+  const winningBoardSum = sumBoard(winningBoard, type);
 
   // get answer: (winningNumber * winningBoardSum)
   const answer = winningNumber * winningBoardSum;
@@ -279,5 +336,5 @@ getAnswers();
 // <<< [ main ] ------------------------------------------------------------ <<<
 
 // >>> [ exports ] --------------------------------------------------------- >>>
-module.exports = { partOne, partTwo };
+// module.exports = { partOne, partTwo };
 // <<< [ exports ] --------------------------------------------------------- <<<
