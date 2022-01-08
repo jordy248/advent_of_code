@@ -23,7 +23,7 @@ const partOne = (input) => {
   const fish = parseInput(input);
   const nDays = 80;
 
-  [...Array(nDays).keys()].forEach((day) => {
+  [...Array(nDays).keys()].forEach((day) => { // eslint-disable-line
     fish.forEach((f, i) => {
       if (f === 0) {
         fish[i] = 6;
@@ -52,7 +52,7 @@ const partTwo = (input) => {
     return nFish;
   });
 
-  [...Array(nDays).keys()].forEach((day) => {
+  [...Array(nDays).keys()].forEach((day) => { // eslint-disable-line
     // update ages by shifting items to the left
     // and save the leftmost item (count of spawning fish)
     const spawnFish = agesArr.shift();

@@ -111,9 +111,11 @@ const partTwo = (input) => {
   for (const [[x0, y0], [x1, y1]] of lines) {
     const [xMin, xMax] = [Math.min(x0, x1), Math.max(x0, x1)];
     const [yMin, yMax] = [Math.min(y0, y1), Math.max(y0, y1)];
-    if (x0 == x1 || y0 == y1) {
+    if (x0 === x1 || y0 === y1) {
       // horizontal or vertical line
+      // eslint-disable-next-line no-plusplus
       for (let x = xMin; x <= xMax; x++) {
+        // eslint-disable-next-line no-plusplus
         for (let y = yMin; y <= yMax; y++) {
           const coord = `${x},${y}`;
           gridDict[coord] = gridDict[coord] ? (gridDict[coord] += 1) : 1;
