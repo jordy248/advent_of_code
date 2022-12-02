@@ -1,33 +1,34 @@
-import { notStrictEqual } from 'assert';
+import * as path from 'path';
 
 import CONSTANTS from '../../Components/Constants.js';
 import cookie from '../../../utils/getCookie.js';
-import { getExample } from '../../../utils/getExample.js';
-import { getInput, tidyInput } from '../../../utils/getInput.js';
+import { getInput } from '../../../utils/getInput.js';
 
-// >>> [ configs ] --------------------------------------------------------- >>>
-const DAY = '1';
+// >>> [ fake __dirname ] -------------------------------------------------- >>>
+const __dirname = (() => {
+  const x = path.dirname(decodeURI(new URL(import.meta.url).pathname));
+  return path.resolve(process.platform === 'win32' ? x.substr(1) : x);
+})();
+// <<< [ fake __dirname ] -------------------------------------------------- <<<
+
+// >>> [ CONSTANTS ] ------------------------------------------------------- >>>
+const DAY = +__dirname.split('/').pop().replaceAll(/[^\d]/g, '');
 const { YEAR } = CONSTANTS;
-// <<< [ configs ] --------------------------------------------------------- <<<
+// <<< [ CONSTANTS ] ------------------------------------------------------- <<<
 
 // >>> [ function to parse input ] ----------------------------------------- >>>
 const parseInput = (input) => {
-  const data = input.split('\n\n').map((row) =>
-    row
-      .split('\n')
-      .filter((o) => o !== '')
-      .map((o) => parseInt(o))
-  );
+  const data = input
+    .trim()
+    .split('\n\n')
+    .map((elf) => elf.split('\n').map((snackCals) => parseInt(snackCals)));
   return data;
 };
 // <<< [ function to parse input ] ----------------------------------------- <<<
 
 // >>> [ answer functions ] ------------------------------------------------ >>>
 // >>> [ partOne function ] >>>
-const partOne = (input) => {
-  // parse input
-  const data = parseInput(input);
-
+const partOne = (data) => {
   // sum calories carried by each elf
   const elfSums = data.map((elf) => elf.reduce((a, b) => a + b, 0));
 
@@ -39,34 +40,15 @@ const partOne = (input) => {
 // <<< [ partOne function ] <<<
 
 // >>> [ partTwo function ] >>>
-const partTwo = (input) => {
-  // parse input
-  const data = parseInput(input);
-
+const partTwo = (data) => {
   // sum calories carried by each elf
   const elfSums = data.map((elf) => elf.reduce((a, b) => a + b, 0));
 
-  // get 3 largest elfSums
-  elfSums.sort((a, b) => {
-    if (a < b) {
-      return -1;
-    }
-    if (a > b) {
-      return 1;
-    }
-    return 0;
-  });
-
-  // get three largest elf sums
-  const threeLargestElfSums = elfSums.reverse().slice(0, 3);
-
   // sum three largest elf sums
-  const totalThreeLargestElfSums = threeLargestElfSums.reduce(
-    (a, b) => a + b,
-    0
-  );
+  elfSums.sort((a, b) => (a <= b ? 1 : -1));
+  const sumThreeLargest = elfSums.slice(0, 3).reduce((a, b) => a + b, 0);
 
-  return totalThreeLargestElfSums;
+  return sumThreeLargest;
 };
 // <<< [ partTwo function ] <<<
 // <<< [ answer functions ] ------------------------------------------------ <<<
@@ -74,17 +56,13 @@ const partTwo = (input) => {
 // >>> [ main ] ------------------------------------------------------------ >>>
 const getAnswers = async () => {
   try {
-    // get input
     const input = await getInput(
       `https://adventofcode.com/${YEAR}/day/${DAY}/input`,
       cookie
     );
-
-    // get part one answer
-    const partOneAnswer = await partOne(input);
-
-    // get part two answer
-    const partTwoAnswer = await partTwo(input);
+    const data = parseInput(input);
+    const partOneAnswer = partOne(data);
+    const partTwoAnswer = partTwo(data);
 
     return Promise.all([partOneAnswer, partTwoAnswer]).then(
       ([answerOne, answerTwo]) => {
@@ -100,6 +78,4 @@ const getAnswers = async () => {
 getAnswers();
 // <<< [ main ] ------------------------------------------------------------ <<<
 
-// >>> [ export ] --------------------------------------------------------- >>>
-export { partOne, partTwo };
-// <<< [ export ] --------------------------------------------------------- <<<
+export { parseInput, partOne, partTwo };
