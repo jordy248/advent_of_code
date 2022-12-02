@@ -2,7 +2,7 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
 // get input data from advent of code using auth session cookie
-export const getExample = async (url, cookie, selector) => {
+export const getExampleInput = async (url, cookie, selector) => {
   const req = axios.get(url, {
     headers: {
       Cookie: cookie.indexOf('session=') === -1 ? `session=${cookie}` : cookie,
