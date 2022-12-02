@@ -43,7 +43,7 @@ const partOne = (data) => {
     const [opponentChoiceOrd, playerChoiceOrd] = getChoiceOrd(b);
     const choiceScore = playerChoiceOrd + 1;
     let outcomeScore = (playerChoiceOrd + 1 - opponentChoiceOrd) % 3;
-    outcomeScore += Math.sign(outcomeScore === -1) ? 3 : 0;
+    outcomeScore += Math.sign(outcomeScore) === -1 ? 3 : 0;
     outcomeScore *= 3;
     const gameScore = choiceScore + outcomeScore;
 
@@ -60,7 +60,7 @@ const partTwo = (data) => {
     const [opponentChoiceOrd, playerChoiceOrd] = getChoiceOrd(b);
     const choiceScore = playerChoiceOrd * 3;
     let outcomeScore = (playerChoiceOrd + opponentChoiceOrd + 2) % 3;
-    outcomeScore += Math.sign(outcomeScore === -1) ? 3 + 1 : 0 + 1;
+    outcomeScore += Math.sign(outcomeScore) === -1 ? 3 + 1 : 0 + 1;
     const gameScore = choiceScore + outcomeScore;
 
     return a + gameScore;
