@@ -1,8 +1,8 @@
 import * as path from 'path';
 
 import CONSTANTS from '../../Components/Constants.js';
-import cookie from '../../../utils/getCookie.js';
-import { getInput } from '../../../utils/getInput.js';
+import cookie from '../../../utils/Cookie.js';
+import { getInput } from '../../../utils/Input.js';
 
 // >>> [ fake __dirname ] -------------------------------------------------- >>>
 const __dirname = (() => {

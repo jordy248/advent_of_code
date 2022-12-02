@@ -1,5 +1,5 @@
-import cookie from '../../../utils/getCookie.js';
-import { getInput } from '../../../utils/getInput.js';
+import cookie from '../../../utils/Cookie.js';
+import { getInput } from '../../../utils/Input.js';
 
 // >>> [ configs ] --------------------------------------------------------- >>>
 const day = '7';

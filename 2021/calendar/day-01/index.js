@@ -1,6 +1,6 @@
-import cookie from '../../../utils/getCookie.js';
-import { getExample } from '../../../utils/getExample.js';
-import { getInput, tidyInput } from '../../../utils/getInput.js';
+import cookie from '../../../utils/Cookie.js';
+import { getExample } from '../../../utils/Example.js';
+import { getInput, tidyInput } from '../../../utils/Input.js';
 
 // >>> [ configs ] --------------------------------------------------------- >>>
 const day = '1';
