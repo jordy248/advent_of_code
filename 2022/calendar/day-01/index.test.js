@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import CONSTANTS from '../../Components/Constants.js';
 import cookie from '../../../utils/Cookie.js';
-import { getExample, getExampleAnswer } from '../../../utils/Example.js';
+import { getExampleInput, getExampleAnswer } from '../../../utils/Example.js';
 import { parseInput, partOne, partTwo } from './index.js';
 
 // >>> [ fake __dirname ] -------------------------------------------------- >>>
@@ -26,7 +26,7 @@ test('partOne example', async () => {
   );
   console.log('partOne example answer:', exampleAnswer);
 
-  const exampleInput = await getExample(
+  const exampleInput = await getExampleInput(
     `https://adventofcode.com/${YEAR}/day/${DAY}`,
     cookie,
     'pre:nth-of-type(1)'
@@ -47,7 +47,7 @@ test('partTwo example', async () => {
   );
   console.log('partTwo example answer:', exampleAnswer);
 
-  const exampleInput = await getExample(
+  const exampleInput = await getExampleInput(
     `https://adventofcode.com/${YEAR}/day/${DAY}`,
     cookie,
     'pre:nth-of-type(1)'

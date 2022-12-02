@@ -1,5 +1,5 @@
 import cookie from '../../../utils/Cookie.js';
-import { getExample } from '../../../utils/Example.js';
+import { getExampleInput } from '../../../utils/Example.js';
 import { getInput, tidyInput } from '../../../utils/Input.js';
 
 // >>> [ configs ] --------------------------------------------------------- >>>

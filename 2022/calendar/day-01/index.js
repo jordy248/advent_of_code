@@ -66,8 +66,8 @@ const getAnswers = async () => {
 
     return Promise.all([partOneAnswer, partTwoAnswer]).then(
       ([answerOne, answerTwo]) => {
-        // console.log(`Part One Answer: ${answerOne}`);
-        // console.log(`Part Two Answer: ${answerTwo}`);
+        console.log(`Part One Answer: ${answerOne}`);
+        console.log(`Part Two Answer: ${answerTwo}`);
       }
     );
   } catch (error) {

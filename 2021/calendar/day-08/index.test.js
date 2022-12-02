@@ -1,5 +1,5 @@
 import cookie from '../../../utils/Cookie.js';
-import { getExample } from '../../../utils/Example.js';
+import { getExampleInput } from '../../../utils/Example.js';
 import { partOne, partTwo } from './index.js';
 
 // >>> [ configs ] --------------------------------------------------------- >>>
@@ -8,7 +8,7 @@ const day = '8';
 
 // >>> [ tests ] ----------------------------------------------------------- >>>
 test('partOne example', () =>
-  getExample(
+  getExampleInput(
     `https://adventofcode.com/2021/day/${day}`,
     cookie,
     '.day-desc:nth-of-type(1) pre:nth-of-type(3)'
@@ -19,7 +19,7 @@ test('partOne example', () =>
   }));
 
 test('partTwo example', () =>
-  getExample(
+  getExampleInput(
     `https://adventofcode.com/2021/day/${day}`,
     cookie,
     // '.day-desc:nth-of-type(1) pre:nth-of-type(3)'
