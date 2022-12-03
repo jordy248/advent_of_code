@@ -16,7 +16,8 @@ const DAY = +__dirname.split('/').pop().replaceAll(/[^\d]/g, '');
 const { YEAR } = CONSTANTS;
 // <<< [ CONSTANTS ] ------------------------------------------------------- <<<
 
-// >>> [ function to parse input ] ----------------------------------------- >>>
+// >>> [ UTILS ] ----------------------------------------------------------- >>>
+// >>> [ function to parse input ] >>>
 const parseInput = (input) => {
   const test = `vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -28,9 +29,9 @@ CrZsJsPPZsGzwwsLwLmpwMDw`;
   const data = input.trim().split('\n');
   return data;
 };
-// <<< [ function to parse input ] ----------------------------------------- <<<
+// <<< [ function to parse input ] <<<
 
-// >>> [ function to get item's priority ] --------------------------------- >>>
+// >>> [ function to get item's priority ] >>>
 const getItemPriority = (item) => {
   if (typeof item === 'undefined' || item === null) return 0;
 
@@ -42,7 +43,7 @@ const getItemPriority = (item) => {
 
   return itemPriority;
 };
-// <<< [ function to get item's priority ] --------------------------------- <<<
+// <<< [ function to get item's priority ] <<<
 
 // >>> [ function to find common letters between two strings ] >>>
 const getCommonLetters = (s1, s2) => {
@@ -55,7 +56,7 @@ const getCommonLetters = (s1, s2) => {
 };
 // <<< [ function to find common letters between two strings ] <<<
 
-// >>> [ function to find intersection between arbitrary num of strings ] >>>
+// >>> [ function to find intersection between arbitrary num of strings ]  >>>
 const getStringsIntersection = (...strings) => {
   const [stringsArr] = strings;
 
@@ -76,6 +77,7 @@ const getStringsIntersection = (...strings) => {
   return commonLetters;
 };
 // <<< [ function to find intersection between arbitrary num of strings ] <<<
+// <<< [ UTILS ] ----------------------------------------------------------- <<<
 
 // >>> [ answer functions ] ------------------------------------------------ >>>
 // >>> [ partOne function ] >>>
