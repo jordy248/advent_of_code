@@ -108,8 +108,8 @@ const partTwo = (data) => {
   }, []);
 
   const groupBadges = groupedData.map((group) => {
-    const test = getStringsIntersection(group);
-    return test;
+    const badge = getStringsIntersection(group);
+    return badge;
   });
 
   // get priority of each group's badge item
