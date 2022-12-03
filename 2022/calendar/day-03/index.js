@@ -82,8 +82,8 @@ const partOne = (data) => {
   ]);
 
   // get items in both halves
-  const commonItems = rucksacks.map(
-    (rucksack) => getCommonLetters(rucksack[0], rucksack[1])[0]
+  const commonItems = rucksacks.map((rucksack) =>
+    getCommonLetters(rucksack[0], rucksack[1]).pop()
   );
 
   // get priority of common items
