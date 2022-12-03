@@ -19,13 +19,6 @@ const { YEAR } = CONSTANTS;
 // >>> [ UTILS ] ----------------------------------------------------------- >>>
 // >>> [ function to parse input ] >>>
 const parseInput = (input) => {
-  const test = `vJrwpWtwJgWrhcsFMMfFFhFp
-jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-PmmdzqPrVvPwwTWBwg
-wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw`;
-
   const data = input.trim().split('\n');
   return data;
 };
