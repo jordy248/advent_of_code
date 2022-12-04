@@ -86,19 +86,19 @@ const partTwo = (data) => {
     return [s1, s2];
   });
 
-  // get containing ranges; one range completely contains the other if:
+  // get overlapping ranges; ranges overlap if:
   // * signs are different
   // * one sign is 0
-  const containingRanges = diffSigns.map((s) => {
+  const overlappingRanges = diffSigns.map((s) => {
     const [s1, s2] = s;
     const sp = s1 * s2;
     return +(sp === -1 || sp === 0);
   });
 
   // count containing ranges
-  const nContainingRanges = containingRanges.reduce((a, b) => a + b, 0);
+  const nOverlappingRanges = overlappingRanges.reduce((a, b) => a + b, 0);
 
-  return nContainingRanges;
+  return nOverlappingRanges;
 };
 // <<< [ partTwo function ] <<<
 // <<< [ answer functions ] ------------------------------------------------ <<<
