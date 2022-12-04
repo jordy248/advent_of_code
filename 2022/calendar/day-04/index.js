@@ -1,6 +1,5 @@
 import * as path from 'path';
 
-import { sign } from 'crypto';
 import CONSTANTS from '../../Components/Constants.js';
 import cookie from '../../../utils/Cookie.js';
 import { getInput } from '../../../utils/Input.js';
