@@ -22,7 +22,8 @@ test('partOne example', async () => {
   const exampleAnswer = await getExampleAnswer(
     `https://adventofcode.com/${YEAR}/day/${DAY}`,
     cookie,
-    1
+    1,
+    'number'
   );
   console.log('partOne example answer:', exampleAnswer);
 
@@ -35,15 +36,15 @@ test('partOne example', async () => {
   const data = parseInput(exampleInput);
   const answer = partOne(data);
 
-  // expect(answer).toBe(24000);
-  expect(answer).toBe(+exampleAnswer);
+  expect(answer).toBe(exampleAnswer);
 });
 
 test('partTwo example', async () => {
   const exampleAnswer = await getExampleAnswer(
     `https://adventofcode.com/${YEAR}/day/${DAY}`,
     cookie,
-    2
+    2,
+    'number'
   );
   console.log('partTwo example answer:', exampleAnswer);
 
@@ -56,7 +57,6 @@ test('partTwo example', async () => {
   const data = parseInput(exampleInput);
   const answer = partTwo(data);
 
-  // expect(answer).toBe(45000);
-  expect(answer).toBe(+exampleAnswer);
+  expect(answer).toBe(exampleAnswer);
 });
 // <<< [ tests ] ----------------------------------------------------------- <<<

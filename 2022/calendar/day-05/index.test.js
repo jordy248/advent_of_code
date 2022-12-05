@@ -36,7 +36,6 @@ test('partOne example', async () => {
   const data = parseInput(exampleInput);
   const answer = partOne(data);
 
-  // expect(answer).toBe(24000);
   expect(answer).toBe(exampleAnswer);
 });
 
@@ -58,7 +57,6 @@ test('partTwo example', async () => {
   const data = parseInput(exampleInput);
   const answer = partTwo(data, true);
 
-  // expect(answer).toBe(45000);
   expect(answer).toBe(exampleAnswer);
 });
 // <<< [ tests ] ----------------------------------------------------------- <<<

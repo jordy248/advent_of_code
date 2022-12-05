@@ -19,7 +19,7 @@ export const getExampleInput = async (url, cookie, selector) => {
 };
 
 // get example answer
-export const getExampleAnswer = async (url, cookie, part) => {
+export const getExampleAnswer = async (url, cookie, part, type = 'number') => {
   const req = axios.get(url, {
     headers: {
       Cookie: cookie.indexOf('session=') === -1 ? `session=${cookie}` : cookie,
@@ -41,14 +41,27 @@ export const getExampleAnswer = async (url, cookie, part) => {
 
   if (boldCodeEls.length === 0) return null;
 
-  // get last bold code el containing number
-  const numberEls = Array.from(boldCodeEls).filter((el) => {
-    const elText = el.textContent;
-    return /\d+/.test(elText);
-  });
+  // get last bold code el containing number or text
+  let answer;
+  if (type.toLowerCase() === 'number') {
+    const answerEls = Array.from(boldCodeEls).filter((el) => {
+      const elText = el.textContent;
+      return /\d+/.test(elText);
+    });
 
-  // get last number el
-  const numberEl = numberEls[numberEls.length - 1];
+    // get last number el
+    const answerEl = answerEls[answerEls.length - 1];
+    answer = +answerEl.textContent;
+  } else {
+    const answerEls = Array.from(boldCodeEls).filter((el) => {
+      const elText = el.textContent;
+      return /\w+/.test(elText);
+    });
 
-  return numberEl.textContent;
+    // get last number el
+    const answerEl = answerEls[answerEls.length - 1];
+    answer = answerEl.textContent;
+  }
+
+  return answer;
 };
