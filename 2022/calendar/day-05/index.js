@@ -75,18 +75,13 @@ const parseInput = (input) => {
   return dataParsed;
 };
 // <<< [ function to parse input ] <<<
-// <<< [ UTILS ] ----------------------------------------------------------- <<<
 
-// >>> [ answer functions ] ------------------------------------------------ >>>
-// >>> [ partOne function ] >>>
-const partOne = (data) => {
-  const { stacks, instructions } = data;
-
+// >>> [ function to move crates ] >>>
+const moveCrates = (stacks, instructions, craneType) => {
   // create deep clone of stacks data to avoid modifying original data
   const stacksCopy = JSON.parse(JSON.stringify(stacks));
 
   // execute instructions
-  const craneType = 'CrateMover 9000';
   instructions.forEach((instruction, i) => {
     const [move, from, to] = instruction;
     // reverse crates if crane is 9000
@@ -99,6 +94,21 @@ const partOne = (data) => {
       stacksCopy[to - 1].push(c);
     });
   });
+
+  return stacksCopy;
+};
+// <<< [ function to move crates ] <<<
+// <<< [ UTILS ] ----------------------------------------------------------- <<<
+
+// >>> [ answer functions ] ------------------------------------------------ >>>
+// >>> [ partOne function ] >>>
+const partOne = (data) => {
+  const { stacks, instructions } = data;
+  const craneType = 'CrateMover 9000';
+
+  // create deep clone of stacks data to avoid modifying original data
+  let stacksCopy = JSON.parse(JSON.stringify(stacks));
+  stacksCopy = moveCrates(stacksCopy, instructions, craneType);
 
   // get crates on top of each stack
   const topCrates = stacksCopy
@@ -113,24 +123,11 @@ const partOne = (data) => {
 // >>> [ partTwo function ] >>>
 const partTwo = (data) => {
   const { stacks, instructions } = data;
+  const craneType = 'CrateMover 9001';
 
   // create deep clone of stacks data to avoid modifying original data
-  const stacksCopy = JSON.parse(JSON.stringify(stacks));
-
-  // execute instructions
-  const craneType = 'CrateMover 9001';
-  instructions.forEach((instruction, i) => {
-    const [move, from, to] = instruction;
-    // reverse crates if crane is 9000
-    const crates =
-      craneType === 'CrateMover 9000'
-        ? stacksCopy[from - 1].splice(-move, move).reverse()
-        : stacksCopy[from - 1].splice(-move, move);
-
-    crates.forEach((c) => {
-      stacksCopy[to - 1].push(c);
-    });
-  });
+  let stacksCopy = JSON.parse(JSON.stringify(stacks));
+  stacksCopy = moveCrates(stacksCopy, instructions, craneType);
 
   // get crates on top of each stack
   const topCrates = stacksCopy
