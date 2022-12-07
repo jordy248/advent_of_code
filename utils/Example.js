@@ -2,6 +2,8 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
 // get input data from advent of code using auth session cookie
+
+// >>> [ function to get example input by selector ] >>>
 export const getExampleInput = async (url, cookie, selector) => {
   const req = axios.get(url, {
     headers: {
@@ -17,8 +19,9 @@ export const getExampleInput = async (url, cookie, selector) => {
 
   return exampleData;
 };
+// <<< [ function to get example input by selector ] <<<
 
-// get example answer
+// >>> [ function to try automatically getting example answer ] >>>
 export const getExampleAnswer = async (url, cookie, part, type = 'number') => {
   const req = axios.get(url, {
     headers: {
@@ -65,3 +68,29 @@ export const getExampleAnswer = async (url, cookie, part, type = 'number') => {
 
   return answer;
 };
+// <<< [ function to try automatically getting example answer ] <<<
+
+// >>> [ function to get example answer by selector ] >>>
+export const getExampleAnswerBySelector = async (
+  url,
+  cookie,
+  selector,
+  type = 'number'
+) => {
+  const req = axios.get(url, {
+    headers: {
+      Cookie: cookie.indexOf('session=') === -1 ? `session=${cookie}` : cookie,
+    },
+  });
+
+  const res = await req;
+
+  // convert res.data into dom element that can be queried
+  const dom = new JSDOM(res.data);
+  const exampleAnswer = dom.window.document.querySelector(selector).textContent;
+
+  if (type.toLowerCase() === 'number') return +exampleAnswer;
+
+  return exampleAnswer;
+};
+// <<< [ function to get example answer by selector ] <<<
