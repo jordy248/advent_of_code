@@ -36,9 +36,13 @@ export const getExampleAnswer = async (url, cookie, part, type = 'number') => {
 
   // get part's last em > code or code > em containing a number
   const boldCodeEls = dom.window.document.querySelectorAll(
+    // `
+    //   main > article:nth-of-type(${part}) > p > em:last-of-type > code,
+    //   main > article:nth-of-type(${part}) > p > code:last-of-type > em
+    // `
     `
-      main > article:nth-of-type(${part}) > p > em:last-of-type > code,
-      main > article:nth-of-type(${part}) > p > code:last-of-type > em
+      main > article:nth-of-type(${part}) > p > em > code,
+      main > article:nth-of-type(${part}) > p > code > em
     `
   );
 
