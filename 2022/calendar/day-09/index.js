@@ -116,7 +116,6 @@ const partOne = (data) => {
 const partTwo = (data) => {
   const nKnots = 10;
   const coordsVisitedByTail = simRope(nKnots, data);
-  console.log('coordsVisitedByTail', coordsVisitedByTail);
   const nCoordsVisitedByTail = Object.keys(coordsVisitedByTail).length;
   return nCoordsVisitedByTail;
 };
