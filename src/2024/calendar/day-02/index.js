@@ -27,15 +27,9 @@ const parseInput = (input) => {
 // <<< [ function to parse input ] ----------------------------------------- <<<
 
 // >>> [ utils ] ----------------------------------------------------------- >>>
-const getIsReportIncreasing = (report) => {
-    return report.every((level, i) => i === 0 || level > report[i - 1]);
-};
-const getIsReportDecreasing = (report) => {
-    return report.every((level, i) => i === 0 || level < report[i - 1]);
-};
-const getAdjacentDifferences = (report) => {
-    return report.map((level, i) => i === 0 ? 0 : level - report[i - 1]);
-};
+const getIsReportIncreasing = (report) => report.every((level, i) => i === 0 || level > report[i - 1]);
+const getIsReportDecreasing = (report) => report.every((level, i) => i === 0 || level < report[i - 1]);
+const getAdjacentDifferences = (report) => report.map((level, i) => i === 0 ? 0 : level - report[i - 1]);
 const getIsEveryAdjacentDifferencesSafe = (adjacentDifferences) => adjacentDifferences.every((diff) => Math.abs(diff) <= 3);
 
 const getIsReportSafe = (report) => {
